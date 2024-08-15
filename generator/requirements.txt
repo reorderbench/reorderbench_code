@@ -1,0 +1,7 @@
+matplotlib
+numpy
+opencv_python
+scipy
+skimage
+torch
+tqdm
