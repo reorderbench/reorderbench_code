@@ -687,6 +687,8 @@ def gen_continuous_dataset(temp_dir, continuous_dir):
         r = np.sort(np.random.rand(length))
         diff_matrix = (r[:, np.newaxis] - r) ** 2
         d = 1 - diff_matrix
+        eps = 1e-8
+        d[d < eps] = eps
         return d
 
     def gen_continuous_pattern(ori_mat, pattern):
