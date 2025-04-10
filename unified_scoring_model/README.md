@@ -6,7 +6,7 @@ We build a unified scoring model based on the ReorderBench. This model aligns wi
 
 ### 1. Download data
 
-Download the ReorderBench test set from [here](https://huggingface.co/datasets/reorderbench/ReorderBench) and the source code from [here](https://github.com/reorderbench/reorderbench_code/tree/main/unified_scoring_model). 
+Download the ReorderBench test set from [here](https://huggingface.co/datasets/reorderbench/ReorderBench), the unified scoring model from [here](https://huggingface.co/reorderbench/unified_scoring_model), and the source code from [here](https://github.com/reorderbench/reorderbench_code/tree/main/unified_scoring_model). 
 
 ### 2. Setup environment
 
