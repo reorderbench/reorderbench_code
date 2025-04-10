@@ -1,6 +1,6 @@
 # ReorderBench: A Benchmark for Matrix Reordering
 
-Related code for benchmark generation, unified scoring models and reordering models in our paper "ReorderBench: A Benchmark for Matrix Reordering".
+Related code for benchmark generation, unified scoring models and reordering models in our paper "ReorderBench: A Benchmark for Matrix Reordering". For more information, please visit https://reorderbench.github.io/.
 
 ![alt text](system_pipeline.png)
 
