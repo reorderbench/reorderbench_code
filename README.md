@@ -1,6 +1,6 @@
 # ReorderBench: A Benchmark for Matrix Reordering
 
-Related code for benchmark generation, unified scoring models and reordering models in our paper "ReorderBench: A Benchmark for Matrix Reordering". For more information, please visit https://reorderbench.github.io/.
+This repository contains the code for generating benchmark data, unified scoring models, and reordering models described in our paper "ReorderBench: A Benchmark for Matrix Reordering". For more information, please visit https://reorderbench.github.io/.
 
 ![alt text](system_pipeline.png)
 
@@ -10,24 +10,27 @@ Related code for benchmark generation, unified scoring models and reordering mod
 
 Check the folder `generator`. 
 
-Generate matrices with different types of visual patterns(block, off-diagonal block, star, band) and matrix(binary, continuous) by `reorderbench_generator`.
+Generate matrices with different visual patterns (block, off-diagonal block, star, band) and types (binary, continuous) using `reorderbench_generator`.
 
 
 ### Unified Scoring Models
+
 Check the folder `unified_scoring_model`.
 
-We build unified scoring models based on the ReorderBench. This model aligns with the convolution- and entropy-based scoring method across all four visual patterns in both binary and continuous matrices and can also measure matrices of varying sizes. 
+We build unified scoring models based on ReorderBench. These models align with the convolution- and entropy-based scoring method across all four visual patterns in both binary and continuous matrices and can also measure matrices of varying sizes. 
 
-Use the models to evaluate the loss of the ReorderBench test set, or to predict visual patterns in any matrices.
+These models can be used to reproduce the scoring results on the ReorderBench test set or to evaluate the quality of visual patterns in any matrix.
 
 
 ### Reordering Models
+
 Check the folder `reordering_model`.
 
-By treating the matrices with index swaps as negative samples and their ground-truth matrices as positive samples, we build a deep model for matrix reordering.
+By treating the matrices with index swaps as negative samples and their ground-truth matrices as positive samples, we build deep models for matrix reordering.
 
-Use the model to test the reordering results on ReorderBench test set.
+These models can be used to reproduce the reordering results of the ReorderBench test set or to reveal the visual patterns of a given matrix.
 
 ## Contact
-If you have any problem about our code, feel free to contact reorderbench@gmail.com or describe your problem in Issues.
+
+If you have any problem with our code, feel free to contact reorderbench@gmail.com or open an issue.
 
