@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torchvision
 
-from utils import resize_to_200
+from utils import resize_to_200, img_write_new
 
 
 parser = argparse.ArgumentParser()
@@ -52,4 +52,12 @@ if __name__ == "__main__":
             torch.tensor(matrix).unsqueeze(0).unsqueeze(0).float().to(device)
         )
         output = output.cpu().numpy()[0]
+        output = [round(x, 2) for x in output]
         print(output)
+
+    matrix_name = args.matrix_path.split("/")[-1].split(".")[0]
+    with open("output.txt", "a") as f:
+        f.write(f"{matrix_name}: {output}\n")
+        f.close()
+    img_write_new(f"{matrix_name}.png", matrix, scale_factor=1)
+    print(f"Image saved as {matrix_name}.png")

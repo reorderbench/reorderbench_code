@@ -4,7 +4,11 @@ This repository contains the code for generating benchmark data, unified scoring
 
 ![alt text](system_pipeline.png)
 
-## Usage
+## Steps to reproduce the results of the unified scoring model
+1. Start with a Linux system with Python. If no Python is installed, please install it first. We offer a python_install.sh script in unified_scoring_model folder to install Python in Linux.
+2. Go to the unified_scoring_model folder.
+3. Then run run.sh, it will automatically install the requirements and run test_single.py for example matrices. You can view the results in the .png file and output.txt in the unified_scoring_model folder.
+
 
 ### Generate Data
 
