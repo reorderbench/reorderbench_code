@@ -4,11 +4,33 @@ This repository contains the code for generating benchmark data, unified scoring
 
 ![alt text](system_pipeline.png)
 
-## Steps to reproduce the results of the unified scoring model
-1. Start with a Linux system with Python. If no Python is installed, please install it first. We offer a python_install.sh script in unified_scoring_model folder to install Python in Linux.
-2. Go to the unified_scoring_model folder.
-3. Then run run.sh, it will automatically install the requirements and run test_single.py for example matrices. You can view the results in the .png file and output.txt in the unified_scoring_model folder.
+## Steps to Reproduce the Results of the Unified Scoring Model **(for TVCG Replicability Stamp)**
 
+The steps below will reproduce the scoring result for example matrices. This corresponds to **Figure 15** (`unified_scoring_model/results.png`) in our paper.
+
+### 1. Prepare the Environment
+
+Ensure you have a Linux system with Python installed. If Python is not installed, navigate to the `unified_scoring_model` folder and execute the `python_install.sh` script to install Python.
+
+### 2. Navigate to the Project Directory
+
+Open a terminal and navigate to the `unified_scoring_model` directory.
+
+### 3. Run the Script
+
+Execute the `run.sh` script in the `unified_scoring_model` folder. This script will:
+
+- Automatically install all required dependencies.
+- Run the `test_single.py` script to process example matrices.
+
+### 4. View the Results
+
+After running the script:
+
+- **Terminal Output**: Scoring results will be displayed directly in the terminal.  
+- **Saved Results**: A `.txt` file with scoring results and `.png` images visualizing the matrices will be saved.
+
+Both files will be located in the `unified_scoring_model` folder.
 
 ### Generate Data
 
