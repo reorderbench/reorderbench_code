@@ -16,14 +16,14 @@ from utils import (add_pattern, calc_ar_deviations_cost, img_write_new,
                    index_swap, pattern_type2str)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--train_dir', type=str, default='./dataset/band_binary_100', help='dir to save dataset')
-parser.add_argument('--train_template_num', type=int, default=15)
+parser.add_argument('--train_dir', type=str, default='./dataset/block_binary_100', help='dir to save dataset')
+parser.add_argument('--train_template_num', type=int, default=180)
 parser.add_argument('--pattern_type', type=str, default='0001', choices=['1000', '0100', '0010', '0001'],
                     help='1000 block | 0100 off-diagonal block | 0010 star | 0001 band')
-parser.add_argument('--seed', type=int, default=101)
+parser.add_argument('--seed', type=int, default=42)
 parser.add_argument('--mat_size', type=int, default=100, choices=[100, 200, 300, 400], help='matrix size')
 parser.add_argument('--with_test', action='store_true', default=False,
-                    help='also generate test data, default number of test data is 0.1 of train data')
+                    help='also generate test data, default number of test data is 0.25 of train data')
 parser.add_argument('--symmetric', action='store_true', default=True, help='symmetric pattern')
 parser.add_argument('--continuous', action='store_true', default=False, help='continuous pattern')
 args = parser.parse_args()
@@ -948,7 +948,7 @@ def gen_index_swap_dataset(noise_dir, swap_dir):
                 swap_dic[prefix][k] = v
 
             matrices.append(tmp_mat.astype(bool))
-            if len(matrices) >= 200:
+            if len(matrices) >= 200000:
                 mat_num += len(matrices)
                 filename = f'{osp.join(swap_dir, "matrices")}' + f'_{chunk_idx}.npz'
                 if 'score' in list(swap_dic.values())[0]:
@@ -1027,7 +1027,7 @@ def gen_index_swap_dataset_continuous(noise_dir, swap_dir):
             for k, v in match_res.items():
                 swap_dic[prefix][k] = v
             matrices.append(tmp_mat.astype(np.float16))
-            if len(matrices) >= 20000:
+            if len(matrices) >= 200000:
                 mat_num += len(matrices)
                 filename = f'{osp.join(swap_dir, "matrices")}' + f'_{chunk_idx}.npz'
                 if 'score' in list(swap_dic.values())[0]:

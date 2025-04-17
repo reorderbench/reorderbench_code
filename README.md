@@ -6,24 +6,25 @@ This repository contains the code for generating benchmark data, unified scoring
 
 ## Steps to Reproduce the Results of the Unified Scoring Model **(for TVCG Replicability Stamp)**
 
-The steps below will reproduce the scoring result for example matrices. This corresponds to **Figure 15** (`unified_scoring_model/results.png`) in our paper.
+### Figure 15: Scoring Results for Example Matrices
+The steps below will reproduce the scoring result for example matrices. This corresponds to **Figure 15** (`unified_scoring_model/result_examples.png`) in our paper.
 
-### 1. Prepare the Environment
+#### 1. Prepare the Environment
 
 Ensure you have a Linux system with Python installed. If Python is not installed, navigate to the `unified_scoring_model` folder and execute the `python_install.sh` script to install Python.
 
-### 2. Navigate to the Project Directory
+#### 2. Navigate to the Project Directory
 
 Open a terminal and navigate to the `unified_scoring_model` directory.
 
-### 3. Run the Script
+#### 3. Run the Script
 
 Execute the `run.sh` script in the `unified_scoring_model` folder. This script will:
 
 - Automatically install all required dependencies.
 - Run the `test_single.py` script to process example matrices.
 
-### 4. View the Results
+#### 4. View the Results
 
 After running the script:
 
@@ -32,14 +33,65 @@ After running the script:
 
 Both files will be located in the `unified_scoring_model` folder.
 
-### Generate Data
+### Usage of generator
+
+The steps below will regenerate the ReorderBench dataset.
+
+#### 1. Prepare the Environment
+
+Ensure you have a Linux system with Python installed.
+
+#### 2. Navigate to the Project Directory
+
+Open a terminal and navigate to the `generator` directory.
+
+#### 3. Run the Script
+
+Execute the `generate.sh` script in the `generator` folder. This script will:
+
+- Automatically install all required dependencies.
+- Run the `reorderbench_generator.py` script to generate the ReorderBench. Generating a full ReorderBench takes tens of hours. You can generate a part of it to compare with the test data in https://huggingface.co/datasets/reorderbench/ReorderBench.
+
+#### 4. View the Results
+
+After running the script:
+
+- **Saved Results**: The generated data can be viewed in the `dataset` folder.
+
+### Table IV: Scoring Results for ReorderBench test set
+
+The steps below will reproduce the scoring result for the ReorderBench test set. This corresponds to **Table IV** (`unified_scoring_model/result_benchmark.png`) in our paper.
+
+#### 1. Prepare the Environment
+
+Ensure you have a Linux system with Python installed.
+
+#### 2. Navigate to the Project Directory
+
+Open a terminal and navigate to the `unified_scoring_model` directory.
+
+#### 3. Run the Script
+
+Execute the `run_benchmark.sh` script in the `unified_scoring_model` folder. This script will:
+
+- Automatically install all required dependencies and download required data and models.
+- Run the `test.py` script to test the performance of deep neural networks as the unified scoring model on the ReorderBench test set.
+
+#### 4. View the Results
+
+After running the script (this may take several hours):
+
+- **Saved Results**: Three `.txt` files(convnext_results.txt, res50_results.txt and vgg_results.txt) will be saved. The results of scoring accuracy in Table IV can be found in the last part of each output file. As for the time results, they do vary a bit from machine to machine and with the effects of other running programs.
+
+## Generate Data
+
 
 Check the folder `generator`. 
 
 Generate matrices with different visual patterns (block, off-diagonal block, star, band) and types (binary, continuous) using `reorderbench_generator`.
 
 
-### Unified Scoring Models
+## Unified Scoring Models
 
 Check the folder `unified_scoring_model`.
 
@@ -48,7 +100,7 @@ We build unified scoring models based on ReorderBench. These models align with t
 These models can be used to reproduce the scoring results on the ReorderBench test set or to evaluate the quality of visual patterns in any matrix.
 
 
-### Reordering Models
+## Reordering Models
 
 Check the folder `reordering_model`.
 

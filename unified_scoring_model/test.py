@@ -17,13 +17,13 @@ parser.add_argument(
     "--data_folder", type=str, default="./dataset", help="data folder"
 )
 parser.add_argument(
-    "--model_path", type=str, default="./vgg.pth", help="model type"
+    "--model_path", type=str, default="convnext.pth", help="model type"
 )
 parser.add_argument(
     "--model_type",
     type=str,
     choices=["vgg16", "convnext", "res50"],
-    default="vgg16",
+    default="convnext",
     help="model type",
 )
 args = parser.parse_args()
@@ -116,6 +116,14 @@ if __name__ == "__main__":
     model.load_state_dict(checkpoint)
     model.eval()
     model.to(device)
+    
+    # 创建结果存储字典
+    results = {}
+    for cont in matrix_types:
+        results[cont] = {}
+        for pat in patterns:
+            results[cont][pat] = {}
+            
     for cont in matrix_types:
         for pat in patterns:
             for size in matrix_sizes:
@@ -125,7 +133,7 @@ if __name__ == "__main__":
                 i = 0
                 tested_num = 0
                 L1loss = 0
-                L2loss = 0
+                # L2loss = 0
                 labels_all = np.load(osp.join(hybrid_dir, "labels.npy"))
                 while os.path.exists(osp.join(hybrid_dir, f"matrices_{i}.npz")):
                     matrices = np.load(osp.join(hybrid_dir, f"matrices_{i}.npz"))["matrices"].astype(np.float16)
@@ -138,7 +146,7 @@ if __name__ == "__main__":
                     )
                     dataloader = test_loader
                     L1criterion = nn.L1Loss(reduction="sum")
-                    L2criterion = nn.MSELoss(reduction="sum")
+                    # L2criterion = nn.MSELoss(reduction="sum")
 
                     with torch.no_grad():
                         for X, y in tqdm(dataloader):
@@ -148,11 +156,49 @@ if __name__ == "__main__":
                             pred_comb = model(X)
                             pred = extract_scores(pred_comb, pat).reshape(-1, 1)
                             L1loss += L1criterion(pred, y)
-                            L2loss += L2criterion(pred, y)
+                            # L2loss += L2criterion(pred, y)
                     
                     i += 1
                 L1loss /= len(labels_all)
-                L2loss /= len(labels_all)
+                # L2loss /= len(labels_all)
                 print(f"L1 loss: {L1loss:>5f} \n")
-                print(f"L2 loss: {L2loss:>5f} \n")
-                    
+                # print(f"L2 loss: {L2loss:>5f} \n")
+                
+                # 存储每种组合的损失值
+                results[cont][pat][size] = float(L1loss.cpu().numpy())
+    
+    # 计算每种矩阵类型和模式组合的平均损失
+    avg_results = {}
+    for cont in matrix_types:
+        avg_results[cont] = {}
+        for pat in patterns:
+            # 计算该类型和模式下所有大小的平均损失
+            avg_loss = sum(results[cont][pat].values()) / len(matrix_sizes)
+            avg_results[cont][pat] = avg_loss
+    
+    # 输出结果到文件
+    with open(f"{args.model_type}_results.txt", "w") as f:
+        # 写入详细结果
+        f.write("Detailed L1 Loss Results:\n")
+        f.write("========================\n")
+        for cont in matrix_types:
+            f.write(f"\nMatrix Type: {cont}\n")
+            for pat in patterns:
+                f.write(f"\n  Pattern: {pat}\n")
+                for size in matrix_sizes:
+                    f.write(f"    Size {size}: {results[cont][pat][size]:.5f}\n")
+        
+        # 写入平均结果
+        f.write("\n\nAverage L1 Loss Results:\n")
+        f.write("=======================\n")
+        for cont in matrix_types:
+            f.write(f"\nMatrix Type: {cont}\n")
+            for pat in patterns:
+                f.write(f"  Pattern {pat}: {avg_results[cont][pat]:.5f}\n")
+        
+        # 计算总体平均
+        overall_avg = sum([avg_results[cont][pat] for cont in matrix_types for pat in patterns]) / (len(matrix_types) * len(patterns))
+        f.write(f"\nOverall Average L1 Loss: {overall_avg:.5f}\n")
+    
+    print(f"Results saved to {args.model_type}_results.txt")
+
