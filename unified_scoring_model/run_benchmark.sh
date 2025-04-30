@@ -44,5 +44,5 @@ for type in "${TYPES[@]}"; do
 done
 
 python test.py --model_path convnext.pth --model_type convnext
-python test.py --model_path vgg.pth --model_type vgg
+python test.py --model_path vgg.pth --model_type vgg16
 python test.py --model_path res50.pth --model_type res50
