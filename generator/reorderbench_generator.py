@@ -948,7 +948,7 @@ def gen_index_swap_dataset(noise_dir, swap_dir):
                 swap_dic[prefix][k] = v
 
             matrices.append(tmp_mat.astype(bool))
-            if len(matrices) >= 200000:
+            if len(matrices) >= 20000:
                 mat_num += len(matrices)
                 filename = f'{osp.join(swap_dir, "matrices")}' + f'_{chunk_idx}.npz'
                 if 'score' in list(swap_dic.values())[0]:
@@ -1027,7 +1027,7 @@ def gen_index_swap_dataset_continuous(noise_dir, swap_dir):
             for k, v in match_res.items():
                 swap_dic[prefix][k] = v
             matrices.append(tmp_mat.astype(np.float16))
-            if len(matrices) >= 200000:
+            if len(matrices) >= 20000:
                 mat_num += len(matrices)
                 filename = f'{osp.join(swap_dir, "matrices")}' + f'_{chunk_idx}.npz'
                 if 'score' in list(swap_dic.values())[0]:
